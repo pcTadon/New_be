@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NEW.BE - Réservation Billet</title>
+  <script async src="https://js.stripe.com/v3/buy-button.js"></script>
+  <style>
+    body { 
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+      background: #121212; 
+      color: #fff; 
+      text-align: center; 
+      padding: 2rem; 
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 80vh;
+    }
+    .card { 
+      background: #1e1e1e; 
+      border: 2px solid #d4af37; 
+      border-radius: 12px; 
+      padding: 30px; 
+      max-width: 400px; 
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    }
+    h1 { color: #d4af37; margin-bottom: 5px; }
+    .details { color: #ccc; margin: 15px 0; line-height: 1.5; }
+    .price { font-size: 2rem; font-weight: bold; color: #fff; margin: 20px 0; }
+    .button-container { margin-top: 20px; }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h1>NEW.BE</h1>
+    <p>La soirée de la nouvelle génération en Belgique</p>
+    
+    <div class="details">
+      📍 <strong>Charleroi</strong><br>
+      🗓️ <strong>Vendredi 18 Septembre 2026</strong> à partir de 16h00
+    </div>
+
+    <div class="price">Pass 40,00 €</div>
+
+    <div class="button-container">
+      <stripe-buy-button
+        buy-button-id="buy_btn_1U2Em8KDZ2JsGcUr8gGFHPcT"
+        publishable-key="pk_test_51TJtZvKDZ2JsGcUrmzXJi7U6dRKY9vlwzpvVQBpTYSSscGwyAPPf2nBfTyFpKWXCGf7fzpdHhKo06Y23B2a9GkQ8001jbCVS3B"
+      >
+      </stripe-buy-button>
+    </div>
+  </div>
+
+</body>
+</html>
