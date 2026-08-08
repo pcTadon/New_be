@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contrôle d'accès - NEW.BE</title>
+  <script src="https://unpkg.com/html5-qrcode"></script>
+  <style>
+    body { font-family: sans-serif; background: #111; color: #fff; text-align: center; padding: 15px; }
+    #reader { width: 100%; max-width: 400px; margin: 0 auto; background: #000; }
+    #result { margin-top: 20px; font-size: 1.2rem; font-weight: bold; padding: 15px; border-radius: 8px; }
+    .OK { background: #28a745; color: white; }
+    .ALREADY_USED { background: #ffc107; color: black; }
+    .INVALID, .ERROR { background: #dc3545; color: white; }
+  </style>
+</head>
+<body>
+
+  <h2>📱 Scan Entrée NEW.BE</h2>
+  <div id="reader"></div>
+  <div id="result">En attente de scan...</div>
+
+<script>
+  function onScanSuccess(decodedText) {
+    html5QrcodeScanner.clear();
+
+    fetch('/api/scan-ticket', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ sessionId: decodedText })
+    })
+    .then(res => res.json())
+    .then(data => {
+      const resultDiv = document.getElementById('result');
+      resultDiv.className = data.status;
+      resultDiv.innerHTML = `${data.message} ${data.name ? '<br>Nom: ' + data.name : ''}`;
+
+      setTimeout(() => {
+        resultDiv.className = '';
+        resultDiv.innerText = 'En attente de scan...';
+        html5QrcodeScanner.render(onScanSuccess);
+      }, 3000);
+    });
+  }
+
+  let html5QrcodeScanner = new Html5QrcodeScanner("reader", { fps: 10, qrbox: 250 });
+  html5QrcodeScanner.render(onScanSuccess);
+</script>
+
+</body>
+</html>
