@@ -1161,13 +1161,24 @@
                     alertBox.style.display = 'block';
                     submitBtn.disabled = false;
                     submitBtn.innerText = "VALIDER MA RÉSERVATION (40€)";
-                } else {
-                    alertBox.className = "alert-success";
-                    alertBox.innerHTML = "🎉 Félicitations ! Votre demande d'inscription a été enregistrée.<br>Un e-mail de confirmation avec l'adresse exacte vous sera transmis.";
-                    alertBox.style.display = 'block';
-                    form.reset();
-                    submitBtn.innerText = "RÉSERVATION EFFECTUÉE ✓";
-                }
+                } } else {
+    alertBox.className = "alert-success";
+    alertBox.innerHTML = `
+        <div style="text-align: left; background: rgba(0,0,0,0.3); padding: 15px; border-radius: 8px; border: 1px solid var(--gold-primary);">
+            <h3 style="color: var(--gold-light); margin-bottom: 10px; text-align: center;">🎉 Inscription validée !</h3>
+            <p style="margin-bottom: 10px;">Veuillez effectuer le virement pour finaliser votre réservation :</p>
+            <ul style="list-style: none; padding-left: 0; line-height: 1.8;">
+                <li>📌 <strong>Nom :</strong> Vyrie Blondelle</li>
+                <li>💳 <strong>IBAN :</strong> BE42650733953254</li>
+                <li>📝 <strong>Communication :</strong> ${nom} ${prenom}</li>
+            </ul>
+        </div>
+    `;
+    alertBox.style.display = 'block';
+    form.reset();
+    submitBtn.innerText = "RÉSERVATION EFFECTUÉE ✓";
+}
+ 
             })
             .catch(() => {
                 alertBox.className = "alert-success";
